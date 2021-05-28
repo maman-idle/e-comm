@@ -1,0 +1,23 @@
+{% extends 'common/base.html' %}
+{% block content %}
+{% load humanize %}
+<div class="row justify-content-center mt-4">
+<div class="col col-md-5 text-center mb-3">
+    <img src="{{product.picture.url}}" width="450rem", height="425rem">
+    <h3 class="display-5">{{product.name}}</h3>
+    <strong><p>Price : {{product.price|intcomma}}</p></strong>
+    <button class="btn btn-sm btn-success" onclick="buy()">Buy</button>
+</div>
+<div class="col col-md-3">
+    <form method="POST" class="buy_opt hide" >
+        {% csrf_token %}
+        <div>
+            <label><small><strong>Quantity</strong></small></label>
+            <input class="form-control mb-2" type="number" min="1" name="amount">
+            <input class="btn btn-sm btn-info" type="submit" value="Ok">
+        </div>
+    </form>
+</div>
+</div>
+
+{% endblock %}

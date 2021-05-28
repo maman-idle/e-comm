@@ -1,0 +1,22 @@
+.hide {
+  display: none;
+}
+
+.big-font {
+  font-size: 200%;
+}
+
+.md-font {
+  font-size: 150%;
+}
+
+.big-frame {
+  width: 5rem;
+  height: 46.875rem;
+}
+
+.table td.fit,
+.table th.fit {
+  white-space: nowrap;
+  width: 1%;
+}
