@@ -2,6 +2,16 @@ from typing import DefaultDict
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db.models.deletion import SET_NULL
+from django.core.exceptions import ValidationError
+
+# VALIDATOR
+
+
+def validate_image(image):
+    file_size = image.file.size
+    limit_mb = 1
+    if file_size > limit_mb * 1024 * 1024:  # 1kb = 1024b ; 1mb = 1024kb
+        raise ValidationError("Max size of file is %s MB" % limit_mb)
 
 
 class MyAccountManager(BaseUserManager):
@@ -89,7 +99,7 @@ class Product(models.Model):
 
     # upload to folder media/products, before do this make sure to install Pillow and set up ur media in settings.py
     picture = models.ImageField(
-        upload_to='products', default='products/no_pic.jpg')
+        upload_to='products', default='products/no_pic.jpg', validators=[validate_image])
 
     def __str__(self):
         return self.name
