@@ -46,11 +46,12 @@ class MyAccountManager(BaseUserManager):
 
 
 class Account(AbstractBaseUser):
-    email = models.EmailField(verbose_name="email", max_length=50, unique=True)
-    username = models.CharField(max_length=25, unique=True)
-    password = models.CharField(max_length=15)
-    address = models.CharField(max_length=200)
-    phone = models.CharField(max_length=200)
+    email = models.EmailField(verbose_name="email",
+                              max_length=255, unique=True)
+    username = models.CharField(max_length=255, unique=True)
+    password = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    phone = models.CharField(max_length=255)
 
     # Required fields for custom user model
     date_joined = models.DateTimeField(auto_now_add=True)
