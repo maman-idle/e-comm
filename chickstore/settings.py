@@ -27,7 +27,7 @@ SECRET_KEY = '+jb7+z)te3i^vnix10eyij#ofe#c593b)iddef9d+!!7^u0=59'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://chickstore.herokuapp.com/']
+ALLOWED_HOSTS = ['chickstore.herokuapp.com']
 
 
 # Application definition
