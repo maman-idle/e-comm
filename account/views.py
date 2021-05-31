@@ -97,6 +97,9 @@ def productpage(request, product_id):
     return render(request, 'chickstore/productpage.html', context)
 
 
+@login_required(login_url='login')
+def about(request):
+    return render(request, 'chickstore/about.html')
 # class ProductImage(DetailView):
 #     model = Product
 #     context_object_name = 'product'

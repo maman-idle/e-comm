@@ -1,0 +1,24 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+
+    <h1 class="display-4 text-center mt-3">About</h1>
+    <p class="fs-3 text text-center">This web app main purpose is as a test project for me to understand more, about web programming using Django as backend
+        and HTML, CSS, and Bootstrap as frontend. This is an ongoing project, the final output of this project is to make an 
+        e-commerce web app to sell poultry products. The next update for this project is the seller side web app, where seller
+        can post their product to the web app and manage the customer orders without accessing Django admin.
+        
+        To learn more about source code of this project, check my github <a href="https://github.com/maman-idle/e-comm" style="text-decoration: none;">link</a>.
+    </p>
+
+    <div id="google_translate_element"></div>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
+    </script>
+        
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+{% endblock %}
