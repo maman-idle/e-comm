@@ -53,9 +53,11 @@ def logoutView(request):
 def main(request):
 
     products = Product.objects.order_by("-id")
+    product = Product.objects.get(pk=1)
 
     context = {
-        "products": products
+        "products": products,
+        "display": product,  # just for display, need storage to keep image files stay
     }
 
     return render(request, 'chickstore/mainpage.html', context)
