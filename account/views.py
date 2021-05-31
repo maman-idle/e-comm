@@ -55,6 +55,7 @@ def main(request):
     products = Product.objects.exclude(pk=1)
     product = Product.objects.get(pk=1)
 
+    # "products" content of context dictionary must be available, in order to show the "display" key
     context = {
         "products": products,
         "display": product,  # just for display, need storage to keep image files stay

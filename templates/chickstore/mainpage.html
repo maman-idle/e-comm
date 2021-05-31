@@ -8,11 +8,11 @@
 <div>
     <h3 class="display-4 mb-5">See What's on Sale</h3>
         {% if products %}
-        <div class="row justify-content-md-center">
+        <div class="row justify-content-center">
 
             <!-- Just for display -->
-            <div class="card text-center ms-3 mb-3" style="width: fit-content;">
-                <img src="{% static 'products/egg.jpg' %}" alt="product_image" height="350rem" width="325rem">
+            <div class="col col-md-4 card ms-3 mb-3 text-center" style="height: 30rem;">
+                <img src="{% static 'products/egg.jpg' %}" alt="product_image" style="max-width: 100%; max-height: 50%;">
                 <div class="card-body">
                     <h4 class="page-header display-4">{{display.name}}
                         <br>
@@ -24,8 +24,8 @@
             </div>
 
             {% for product in products %}
-                <div class="card text-center ms-3 mb-3" style="width: fit-content;">
-                    <img src="{{product.picture.url}}" alt="product_image" height="350rem" width="325rem">
+                <div class="col col-md-4 card ms-3 mb-3 text-center" style="height: 30rem;">
+                    <img src="{{product.picture.url}}" alt="product_image" style="max-width: 100%; max-height: 50%;">
                     <div class="card-body">
                         <h4 class="page-header display-4">{{product.name}}
                             <br>
