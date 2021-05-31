@@ -52,7 +52,7 @@ def logoutView(request):
 @login_required(login_url='login')
 def main(request):
 
-    products = Product.objects.order_by("-id")
+    products = Product.objects.exclude(pk=1)
     product = Product.objects.get(pk=1)
 
     context = {
