@@ -1,8 +1,9 @@
 from typing import DefaultDict
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager, Group, PermissionsMixin
 from django.db.models.deletion import SET_NULL
 from django.core.exceptions import ValidationError
+
 
 # VALIDATOR
 
@@ -35,7 +36,6 @@ class MyAccountManager(BaseUserManager):
             address=address,
             phone=phone
         )
-
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -55,13 +55,14 @@ class MyAccountManager(BaseUserManager):
         return user
 
 
-class Account(AbstractBaseUser):
+class Account(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name="email",
                               max_length=255, unique=True)
     username = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     phone = models.CharField(max_length=255)
+    group = models.ForeignKey(Group, on_delete=SET_NULL, null=True)
 
     # Required fields for custom user model
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -84,12 +85,12 @@ class Account(AbstractBaseUser):
     def __str__(self):
         return self.username
 
-    # Required permission (learn it later)
-    def has_perm(self, perm, obj=None):
-        return self.is_admin
+    # Required permission (learn it later). If inherit PermissionMixins, dont need these line of codes
+    # def has_perm(self, perm, obj=None):
+    #     return self.is_admin
 
-    def has_module_perms(self, app_label):
-        return True
+    # def has_module_perms(self, app_label):
+    #     return True
 
 
 class Product(models.Model):

@@ -20,7 +20,7 @@
         {% csrf_token %}
         <div>
             <label><small><strong>Quantity</strong></small></label>
-            <input class="form-control mb-2" type="number" min="1" name="amount">
+            <input required class="form-control mb-2" type="number" min="1" name="amount">
             <input class="btn btn-sm btn-info" type="submit" value="Ok">
         </div>
     </form>

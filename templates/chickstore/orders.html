@@ -14,7 +14,7 @@
             <th>
                 Product
             </th>
-            <th>
+            <th class="fit">
                 Quantity
             </th>
             <th>
@@ -22,6 +22,9 @@
             </th>
             <th class="fit">
                 Status
+            </th>
+            <th class="fit">
+                Action
             </th>
         </tr>
         {% for order in orders%}
@@ -43,7 +46,16 @@
                 </td>
                 <td>
                     {{order.status}}
-                </td>            
+                </td>
+                {% if order.status == 'Pending' %}
+                    <td>
+                        <a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Cancel order</a>   
+                    </td>            
+                {% elif order.status == 'In Delivery' %}
+                    <td>
+                        <a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Delete order</a>   
+                    </td>            
+                {% endif %}
             </tr>
         {% endfor %}
     </table>

@@ -15,6 +15,12 @@ class AccountAdmin(admin.ModelAdmin):
     search_fields = ('username', 'email', 'address',)
     readonly_fields = ('date_joined', 'last_login')
 
+    fieldsets = (
+        ('Account Info', {'fields': ('username',
+         'email', 'address', 'phone', 'date_joined')}),
+        ('Permissions', {'fields': ('is_admin', 'is_staff', 'group',)}),
+    )
+
 
 admin.site.register(Account, AccountAdmin)
 admin.site.register(Product)

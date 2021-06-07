@@ -1,33 +1,34 @@
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import MyCreateUserForm
 from django.contrib.auth import authenticate, login as login_in, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Order, Product
+from .models import Account, Order, Product
 from django.urls import reverse
-from django.views.generic import DetailView
+from .decorators import unauthenticated_user, allowed_users
 
 
+@unauthenticated_user
 def login(request):
-    if request.user.is_authenticated:
-        return redirect('mainpage')
-    else:
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            password = request.POST.get('password')
 
-            user = authenticate(request, username=username, password=password)
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-            if user is not None:
-                login_in(request, user)
-                return redirect('mainpage')
+        user = authenticate(request, username=username, password=password)
 
-            else:
-                messages.error(request, 'Invalid credentials')
+        if user is not None:
+            login_in(request, user)
+            return redirect('mainpage')
+
+        else:
+            messages.error(request, 'Invalid credentials')
 
     return render(request, 'account/login.html')
 
 
+@unauthenticated_user
 def register(request):
     form = MyCreateUserForm()
 
@@ -50,6 +51,7 @@ def logoutView(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
 def main(request):
 
     products = Product.objects.exclude(pk=1)
@@ -65,6 +67,7 @@ def main(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
 def orders(request, customer):
     orders = Order.objects.filter(customer=customer)
 
@@ -76,6 +79,17 @@ def orders(request, customer):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
+def delete_order(request, order_id):
+
+    current_user = request.user
+    Order.objects.get(pk=order_id).delete()
+
+    return redirect(reverse('orders', kwargs={'customer': int(current_user.id)}))
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
 def productpage(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     current_user = request.user
@@ -100,6 +114,41 @@ def productpage(request, product_id):
 @login_required(login_url='login')
 def about(request):
     return render(request, 'chickstore/about.html')
-# class ProductImage(DetailView):
-#     model = Product
-#     context_object_name = 'product'
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['staff'])
+def staff_page(request):
+
+    pending_orders = Order.objects.filter(status='Pending')
+    delivered_orders = Order.objects.filter(status='In Delivery')
+
+    products = Product.objects.all()
+    customers = Account.objects.filter(group=2)
+
+    context = {
+        'pending': pending_orders,
+        'delivered': delivered_orders,
+        'products': products,
+        'customers': customers
+    }
+
+    return render(request, 'chickstore/staff.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['staff'])
+def deliver(request, order_id):
+
+    Order.objects.filter(pk=order_id).update(status='In Delivery')
+
+    return redirect('staff_page')
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['staff'])
+def cancel_delivery(request, order_id):
+
+    Order.objects.filter(pk=order_id).update(status='Pending')
+
+    return redirect('staff_page')
