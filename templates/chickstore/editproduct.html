@@ -1,0 +1,27 @@
+{% extends 'common/base.html' %}
+{% load humanize %}
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<h4>{{message}}</h4>
+{% endfor %}
+{% endif %}
+<form method="POST">
+    {% csrf_token %}
+    <div class="mt-3">
+        <label for="name">Product Name</label>
+        <input class="form-control" type="text" name="name" value="{{preName}}" />
+    </div>
+    <div class="mt-3">
+        <label for="price">Product Price</label>
+        <input class="form-control" type="number" name="price" value="{{prePrice}}" />
+    </div>
+    <div class="mt-3">
+        <label for="extra">Product Info</label>
+        <input class="form-control" type="extra" name="extra" value="{{preExtra}}" />
+    </div>
+
+    <button class="btn btn-sm btn-success mt-3" type="submit">Edit</button>
+</form>
+
+{% endblock %}

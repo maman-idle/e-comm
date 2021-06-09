@@ -3,44 +3,99 @@
 {% block content %}
 {% load static%}
 
+{% if messages %}
+{% for message in messages %}
+<h3>{{message}}</h3>
+{% endfor %}
+{% endif %}
 <h3 class="display-1">Hello {{user.username}}!</h3>
 
 <div>
     <h3 class="display-4 mb-5">See What's on Sale</h3>
-        {% if products %}
-        <div class="row justify-content-center">
 
-            <!-- Just for display -->
-            <div class="col col-md-4 card ms-3 mb-3 text-center" style="height: 40rem;">
-                <img src="{% static 'products/egg.jpg' %}" alt="product_image" style="max-width: 100%; max-height: 60%;">
-                <div class="card-body">
-                    <h4 class="page-header display-4">{{display.name}}
-                        <br>
-                        <small class="text-muted">{{display.extra}}</small>
-                    </h4>
-                    <p class="price"><strong>Rp {{display.price|intcomma}}</strong></p>
-                    <a class="btn btn-success" href="{% url 'productpage' display.id %}" type="button" style="text-decoration: none;">Buy</a>
-                </div>
+    <div class="row justify-content-center">
+
+        <!-- Just for display -->
+        <div class="col col-md-4 card ms-3 mb-3 text-center" style="height: 40rem;">
+            <img src="{% static 'products/egg.jpg' %}" alt="product_image" style="max-width: 100%; max-height: 60%;">
+            <div class="card-body">
+                <h4 class="page-header display-4">{{display1.name}}
+                    <br>
+                    <small class="text-muted">{{display1.extra}}</small>
+                </h4>
+                <p class="price"><strong>Rp {{display1.price|intcomma}}</strong></p>
+                <a class="btn btn-success" href="{% url 'productpage' display1.id %}" type="button"
+                    style="text-decoration: none;">Buy</a>
             </div>
-
-            {% for product in products %}
-                <div class="col col-md-4 card ms-3 mb-3 text-center" style="height: 40rem;">
-                    <img src="{{product.picture.url}}" alt="product_image" style="max-width: 100%; max-height: 60%;">
-                    <div class="card-body">
-                        <h4 class="page-header display-4">{{product.name}}
-                            <br>
-                            <small class="text-muted">{{product.extra}}</small>
-                        </h4>
-                        <p class="price"><strong>Rp {{product.price|intcomma}}</strong></p>
-                        <a class="btn btn-success" href="{% url 'productpage' product.id %}" type="button" style="text-decoration: none;">Buy</a>
-                    </div>
-                </div>
-            {%endfor%}
         </div>
-        {% else %}
-            <h4>No products available</h4>
+        <div class="col col-md-4 card ms-3 mb-3 text-center" style="height: 40rem;">
+            <img src="{% static 'products/chicken_fillet.jpg' %}" alt="product_image"
+                style="max-width: 100%; max-height: 60%;">
+            <div class="card-body">
+                <h4 class="page-header display-4">{{display2.name}}
+                    <br>
+                    <small class="text-muted">{{display2.extra}}</small>
+                </h4>
+                <p class="price"><strong>Rp {{display2.price|intcomma}}</strong></p>
+                <a class="btn btn-success" href="{% url 'productpage' display2.id %}" type="button"
+                    style="text-decoration: none;">Buy</a>
+            </div>
+        </div>
+        <div class="col col-md-4 card ms-3 mb-3 text-center" style="height: 40rem;">
+            <img src="{% static 'products/chicken_breast.jpg' %}" alt="product_image"
+                style="max-width: 100%; max-height: 60%;">
+            <div class="card-body">
+                <h4 class="page-header display-4">{{display3.name}}
+                    <br>
+                    <small class="text-muted">{{display3.extra}}</small>
+                </h4>
+                <p class="price"><strong>Rp {{display3.price|intcomma}}</strong></p>
+                <a class="btn btn-success" href="{% url 'productpage' display3.id %}" type="button"
+                    style="text-decoration: none;">Buy</a>
+            </div>
+        </div>
+        <div class="col col-md-4 card ms-3 mb-3 text-center" style="height: 40rem;">
+            <img src="{% static 'products/chicken_wings.jpg' %}" alt="product_image"
+                style="max-width: 100%; max-height: 60%;">
+            <div class="card-body">
+                <h4 class="page-header display-4">{{display4.name}}
+                    <br>
+                    <small class="text-muted">{{display4.extra}}</small>
+                </h4>
+                <p class="price"><strong>Rp {{display4.price|intcomma}}</strong></p>
+                <a class="btn btn-success" href="{% url 'productpage' display4.id %}" type="button"
+                    style="text-decoration: none;">Buy</a>
+            </div>
+        </div>
+        <div class="col col-md-4 card ms-3 mb-3 text-center" style="height: 40rem;">
+            <img src="{% static 'products/chicken_feet.jpg' %}" alt="product_image"
+                style="max-width: 100%; max-height: 60%;">
+            <div class="card-body">
+                <h4 class="page-header display-4">{{display5.name}}
+                    <br>
+                    <small class="text-muted">{{display5.extra}}</small>
+                </h4>
+                <p class="price"><strong>Rp {{display5.price|intcomma}}</strong></p>
+                <a class="btn btn-success" href="{% url 'productpage' display5.id %}" type="button"
+                    style="text-decoration: none;">Buy</a>
+            </div>
+        </div>
 
-        {% endif %}
+        {% for product in products %}
+        <div class="col col-md-4 card ms-3 mb-3 text-center" style="height: 40rem;">
+            <img src="{{product.picture.url}}" alt="product_image" style="max-width: 100%; max-height: 60%;">
+            <div class="card-body">
+                <h4 class="page-header display-4">{{product.name}}
+                    <br>
+                    <small class="text-muted">{{product.extra}}</small>
+                </h4>
+                <p class="price"><strong>Rp {{product.price|intcomma}}</strong></p>
+                <a class="btn btn-success" href="{% url 'productpage' product.id %}" type="button"
+                    style="text-decoration: none;">Buy</a>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
 </div>
 
 {% endblock %}

@@ -22,6 +22,11 @@ class AccountAdmin(admin.ModelAdmin):
     )
 
 
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('name', 'price', 'extra', 'date_added')
+    search_fields = ('name', 'extra')
+
+
 admin.site.register(Account, AccountAdmin)
-admin.site.register(Product)
+admin.site.register(Product, ProductAdmin)
 admin.site.register(Order, OrderAdmin)

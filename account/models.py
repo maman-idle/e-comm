@@ -100,7 +100,8 @@ class Product(models.Model):
 
     # upload to folder media/products, before do this make sure to install Pillow and set up ur media in settings.py
     picture = models.ImageField(
-        upload_to='products', default='products/no_pic.jpg', validators=[validate_image])
+        upload_to='products', validators=[validate_image])
+    date_added = models.DateField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.name

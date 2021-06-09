@@ -1,6 +1,8 @@
 from django import forms
+from django.db.models import fields
+from django.forms import ModelForm
 from django.forms.widgets import PasswordInput
-from .models import Account
+from .models import Account, Product
 from django.contrib.auth.models import Group
 from django.contrib.auth.forms import UserCreationForm
 
@@ -59,3 +61,9 @@ class MyCreateStaffForm(UserCreationForm):
             user.save()
 
         return user
+
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = '__all__'

@@ -4,102 +4,116 @@
 
 <h1 class="display-3 mt-3"> Welcome to Admin Page </h1>
 
+{% if messages %}
+{%for message in messages%}
+<h3 class="my-3">{{message}}</h3>
+{% endfor %}
+{% endif %}
 <div class="text-center">
     <div class="col col-md mb-3">
         <div class="card card-body bg-primary">
             <h1 class="display-4 text-white" onclick="showProducts()" style="cursor: pointer;">Products Available</h1>
             {% if products %}
-                <h3 class="display-6 text-black"> <strong>{{products.count}}</strong> </h2>
-            {% else %}
+            <h3 class="display-6 text-black"> <strong>{{products.count}}</strong> </h2>
+                {% else %}
                 <h3 class="display-6 text-black"> <strong>No Products</strong> </h2>
-            {% endif %}
-    
-            <div class="products_opt hide">
-                <table class="table table-striped table-bordered table-primary mt-3">
-                    <tr>
-                        <th>
-                            No.
-                        </th>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Price
-                        </th>
-                        <th>
-                            Extra
-                        </th>
-                    </tr>
-                    {% for product in products %}
-                        <tr>   
-                            <td>
-                                {{forloop.counter}}
-                            </td>
-                            <td>
-                                {{product.name}}
-                            </td>         
-                            <td>
-                                Rp {{product.price|intcomma}}
-                            </td>
-                            <td>
-                                {{product.extra}}
-                            </td>    
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>      
+                    {% endif %}
+
+                    <div class="products_opt hide">
+                        <table class="table table-striped table-bordered table-primary mt-3">
+                            <tr>
+                                <th>
+                                    No.
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Price
+                                </th>
+                                <th>
+                                    Extra
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                            {% for product in products %}
+                            <tr>
+                                <td>
+                                    {{forloop.counter}}
+                                </td>
+                                <td>
+                                    {{product.name}}
+                                </td>
+                                <td>
+                                    Rp {{product.price|intcomma}}
+                                </td>
+                                <td>
+                                    {{product.extra}}
+                                </td>
+                                <td>
+                                    <a class="btn btn-sm btn-info" href="{% url 'edit_product' product.id %}">Edit</a>
+                                    <a class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Are you sure you want to delete {{product.name}} ?')"
+                                        href="{% url 'delete_product' product.id %}">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+        </div>
     </div>
-    
+
     <div class="col col-md mb-3">
         <div class="card card-body bg-warning">
             <h1 class="display-4 text-white" onclick="showCustomers()" style="cursor: pointer;">Customers Available</h1>
             {% if customers %}
-                <h3 class="display-6 text-black"> <strong>{{customers.count}}</strong> </h2>
-            {% else %}
+            <h3 class="display-6 text-black"> <strong>{{customers.count}}</strong> </h2>
+                {% else %}
                 <h3 class="display-6 text-black"> <strong>No Customers</strong> </h2>
-            {% endif %}
-    
-            <div class="customers_opt hide">
-                <table class="table table-striped table-bordered table-warning mt-3">
-                    <tr>
-                        <th>
-                            No.
-                        </th>
-                        <th>
-                            Username
-                        </th>
-                        <th>
-                            Email
-                        </th>
-                        <th>
-                            Address
-                        </th>
-                        <th>
-                            Phone
-                        </th>
-                    </tr>
-                    {% for customer in customers %}
-                        <tr>   
-                            <td>
-                                {{forloop.counter}}
-                            </td>
-                            <td>
-                                {{customer.username}}
-                            </td>         
-                            <td>
-                                {{customer.email}}
-                            </td>
-                            <td>
-                                {{customer.address}}
-                            </td>
-                            <td>
-                                {{customer.phone}}
-                            </td>    
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
+                    {% endif %}
+
+                    <div class="customers_opt hide">
+                        <table class="table table-striped table-bordered table-warning mt-3">
+                            <tr>
+                                <th>
+                                    No.
+                                </th>
+                                <th>
+                                    Username
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Address
+                                </th>
+                                <th>
+                                    Phone
+                                </th>
+                            </tr>
+                            {% for customer in customers %}
+                            <tr>
+                                <td>
+                                    {{forloop.counter}}
+                                </td>
+                                <td>
+                                    {{customer.username}}
+                                </td>
+                                <td>
+                                    {{customer.email}}
+                                </td>
+                                <td>
+                                    {{customer.address}}
+                                </td>
+                                <td>
+                                    {{customer.phone}}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
         </div>
     </div>
 </div>
@@ -110,12 +124,13 @@
             <h1 class="display-4 text-white" style="cursor: pointer;" onclick="showPendingOrders()">Pending Orders</h1>
             {% if pending %}
             <h3 class="display-6 text-black"> <strong>{{pending.count}}</strong> </h3>
-        {% else %}
+            {% else %}
             <h3 class="display-6 text-black"> <strong>No Orders</strong></h3>
-        {% endif %}
-    
+            {% endif %}
+
             <div class="pending_opt hide">
-                <input id="keyword1" type="text" onkeyup="search_bar1()" placeholder="Search customer...">
+                <input class="form-control" id="keyword1" type="text" onkeyup="search_bar1()"
+                    placeholder="Search customer...">
                 <table class="table table-striped table-bordered table-success mt-3 order_tables" id="my_table1">
                     <tr>
                         <th class="fit">
@@ -141,46 +156,49 @@
                         </th>
                     </tr>
                     {% for order in pending %}
-                        <tr>   
-                            <td>
-                                {{forloop.counter}}
-                            </td>
-                            <td>
-                                {{order.customer}}
-                            </td>
-                            <td>
-                                {{order.order_date}}
-                            </td>         
-                            <td>
-                                {{order.product.name}}
-                            </td>
-                            <td>
-                                {{order.quantity}}
-                            </td>
-                            <td>
-                                Rp {{order.price_sum|intcomma}}
-                            </td>
-                            <td>
-                                <a class="btn btn-sm btn-primary" style="word-wrap: break-word;" href="{% url 'deliver' order.id%}">Deliver</a>
-                            </td>            
-                        </tr>
+                    <tr>
+                        <td>
+                            {{forloop.counter}}
+                        </td>
+                        <td>
+                            {{order.customer}}
+                        </td>
+                        <td>
+                            {{order.order_date}}
+                        </td>
+                        <td>
+                            {{order.product.name}}
+                        </td>
+                        <td>
+                            {{order.quantity}}
+                        </td>
+                        <td>
+                            Rp {{order.price_sum|intcomma}}
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-primary" style="word-wrap: break-word;"
+                                href="{% url 'deliver' order.id%}">Deliver</a>
+                        </td>
+                    </tr>
                     {% endfor %}
                 </table>
             </div>
         </div>
     </div>
-    
-    <div class="col col-md-6 mb-3" >
+
+    <div class="col col-md-6 mb-3">
         <div class="card card-body bg-info">
-            <h1 class="display-4 text-white" onclick="showDeliveredOrders()" style="cursor: pointer;">In Delivery Orders</h1>
+            <h1 class="display-4 text-white" onclick="showDeliveredOrders()" style="cursor: pointer;">In Delivery Orders
+            </h1>
             {% if delivered %}
-                <h3 class="display-6 text-black"><strong>{{delivered.count}}</strong> </h3>
+            <h3 class="display-6 text-black"><strong>{{delivered.count}}</strong> </h3>
             {% else %}
-                <h3 class="display-6 text-black"><strong>No Orders</strong> </h3>
+            <h3 class="display-6 text-black"><strong>No Orders</strong> </h3>
             {% endif %}
-    
+
             <div class="delivered_opt hide">
-                <input type="text" id="keyword2" placeholder="Search customer..." onkeyup="search_bar2()">
+                <input type="text" class="form-control" id="keyword2" placeholder="Search customer..."
+                    onkeyup="search_bar2()">
                 <table class="table table-striped table-bordered table-info mt-3 order_tables" id="my_table2">
                     <tr>
                         <th class="fit">
@@ -206,34 +224,36 @@
                         </th>
                     </tr>
                     {% for order in delivered %}
-                        <tr>   
-                            <td>
-                                {{forloop.counter}}
-                            </td>
-                            <td>
-                                {{order.customer}}
-                            </td>
-                            <td>
-                                {{order.order_date}}
-                            </td>         
-                            <td>
-                                {{order.product.name}}
-                            </td>
-                            <td>
-                                {{order.quantity}}
-                            </td>
-                            <td>
-                                Rp {{order.price_sum|intcomma}}
-                            </td>
-                            <td>
-                                <a class="btn btn-sm btn-danger" style="word-wrap:break-word;" href="{% url 'cancel' order.id %}">Cancel Delivery</a>
-                            </td>            
-                        </tr>
+                    <tr>
+                        <td>
+                            {{forloop.counter}}
+                        </td>
+                        <td>
+                            {{order.customer}}
+                        </td>
+                        <td>
+                            {{order.order_date}}
+                        </td>
+                        <td>
+                            {{order.product.name}}
+                        </td>
+                        <td>
+                            {{order.quantity}}
+                        </td>
+                        <td>
+                            Rp {{order.price_sum|intcomma}}
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-danger"
+                                style="word-wrap:break-word; text-align: inherit; vertical-align: inherit;"
+                                href="{% url 'cancel' order.id %}">Cancel Delivery</a>
+                        </td>
+                    </tr>
                     {% endfor %}
                 </table>
             </div>
         </div>
-    </div>    
+    </div>
 </div>
 
 {% endblock %}
