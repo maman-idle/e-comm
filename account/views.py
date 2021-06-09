@@ -54,7 +54,7 @@ def logoutView(request):
 @allowed_users(allowed_roles=['customer'])
 def main(request):
 
-    products = Product.objects.exclude(date_added='2021-06-09')
+    products = Product.objects.exclude(placeholder=True)
     product1 = Product.objects.get(pk=1)
     product2 = Product.objects.get(pk=2)
     product3 = Product.objects.get(pk=3)
