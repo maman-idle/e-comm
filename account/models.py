@@ -102,6 +102,7 @@ class Product(models.Model):
     picture = models.ImageField(
         upload_to='products', validators=[validate_image])
     date_added = models.DateField(auto_now_add=True, null=True)
+    placeholder = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
