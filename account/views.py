@@ -155,7 +155,7 @@ def staff_page(request):
     delivered_orders = Order.objects.filter(status='In Delivery')
 
     products = Product.objects.all()
-    customers = Account.objects.filter(group=2)
+    customers = Account.objects.filter(group=1)
 
     context = {
         'pending': pending_orders,
