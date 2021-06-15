@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager, Group, PermissionsMixin
 from django.db.models.deletion import SET_NULL
 from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 
 
 # VALIDATOR
@@ -61,7 +62,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
-    phone = models.CharField(max_length=255)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+9999999'. Up to 15 digits allowed")
+    phone = models.CharField(max_length=255, validators=[phone_regex], blank=True)
     group = models.ForeignKey(Group, on_delete=SET_NULL, null=True)
 
     # Required fields for custom user model
