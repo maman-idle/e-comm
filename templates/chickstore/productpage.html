@@ -6,17 +6,17 @@
 <div class="row justify-content-center mt-4">
     <div class="col col-md-5 text-center mb-3">
         {% if product.id == 1 %}
-        <img src="{% static 'products/egg.jpg' %}" width="450rem" , height="425rem">
+        <img class="product-image" src="{% static 'products/egg.jpg' %}" width="450rem" , height="425rem">
         {% elif product.id == 2 %}
-        <img src="{% static 'products/chicken_fillet.jpg' %}" width="450rem" , height="425rem">
+        <img class="product-image" src="{% static 'products/chicken_fillet.jpg' %}" width="450rem" , height="425rem">
         {% elif product.id == 3 %}
-        <img src="{% static 'products/chicken_breast.jpg' %}" width="450rem" , height="425rem">
+        <img class="product-image" src="{% static 'products/chicken_breast.jpg' %}" width="450rem" , height="425rem">
         {% elif product.id == 4 %}
-        <img src="{% static 'products/chicken_wings.jpg' %}" width="450rem" , height="425rem">
+        <img class="product-image" src="{% static 'products/chicken_wings.jpg' %}" width="450rem" , height="425rem">
         {% elif product.id == 5 %}
-        <img src="{% static 'products/chicken_feet.jpg' %}" width="450rem" , height="425rem">
+        <img class="product-image" src="{% static 'products/chicken_feet.jpg' %}" width="450rem" , height="425rem">
         {% else %}
-        <img src="{{product.picture.url}}" width="450rem" , height="425rem">
+        <img class="product-image" src="{{product.picture.url}}" width="450rem" , height="425rem">
         {% endif %}
 
         <h3 class="display-5">{{product.name}}</h3>
@@ -25,7 +25,7 @@
         </strong>
         <button class="btn btn-sm btn-success" onclick="buy()">Buy</button>
     </div>
-    <div class="col col-md-3">
+    <div class="col col-md-3 mb-3">
         <form method="POST" class="buy_opt hide">
             {% csrf_token %}
             <div>

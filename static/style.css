@@ -27,8 +27,12 @@
   object-fit: cover;
 }
 
-.order_tables {
+/* .order_tables {
   word-wrap: break-word;
   table-layout: fixed;
   width: 100%;
+} */
+
+@media (max-width: 765px) {
+  .product-image {width: 20rem; height: 20rem;}
 }

@@ -16,7 +16,7 @@
     <div class="row justify-content-center">
 
         <!-- Just for display -->
-        <div class="col col-md-4 card ms-3 mb-3 text-center" style="height: 40rem;">
+        <div class="col-9 col-md-4 card ms-3 mb-3 text-center">
             <img src="{% static 'products/egg.jpg' %}" alt="product_image" style="max-width: 100%; max-height: 60%;">
             <div class="card-body">
                 <h4 class="page-header display-4">{{display1.name}}
@@ -28,7 +28,7 @@
                     style="text-decoration: none;">Buy</a>
             </div>
         </div>
-        <div class="col col-md-4 card ms-3 mb-3 text-center" style="height: 40rem;">
+        <div class="col-9 col-md-4 card ms-3 mb-3 text-center">
             <img src="{% static 'products/chicken_fillet.jpg' %}" alt="product_image"
                 style="max-width: 100%; max-height: 60%;">
             <div class="card-body">
@@ -41,7 +41,7 @@
                     style="text-decoration: none;">Buy</a>
             </div>
         </div>
-        <div class="col col-md-4 card ms-3 mb-3 text-center" style="height: 40rem;">
+        <div class="col-9 col-md-4 card ms-3 mb-3 text-center">
             <img src="{% static 'products/chicken_breast.jpg' %}" alt="product_image"
                 style="max-width: 100%; max-height: 60%;">
             <div class="card-body">
@@ -54,7 +54,7 @@
                     style="text-decoration: none;">Buy</a>
             </div>
         </div>
-        <div class="col col-md-4 card ms-3 mb-3 text-center" style="height: 40rem;">
+        <div class="col-9 col-md-4 card ms-3 mb-3 text-center">
             <img src="{% static 'products/chicken_wings.jpg' %}" alt="product_image"
                 style="max-width: 100%; max-height: 60%;">
             <div class="card-body">
@@ -67,7 +67,7 @@
                     style="text-decoration: none;">Buy</a>
             </div>
         </div>
-        <div class="col col-md-4 card ms-3 mb-3 text-center" style="height: 40rem;">
+        <div class="col-9 col-md-4 card ms-3 mb-3 text-center">
             <img src="{% static 'products/chicken_feet.jpg' %}" alt="product_image"
                 style="max-width: 100%; max-height: 60%;">
             <div class="card-body">
@@ -82,7 +82,7 @@
         </div>
 
         {% for product in products %}
-        <div class="col col-md-4 card ms-3 mb-3 text-center" style="height: 40rem;">
+        <div class="col-9 col-md-4 card ms-3 mb-3 text-center">
             <img src="{{product.picture.url}}" alt="product_image" style="max-width: 100%; max-height: 60%;">
             <div class="card-body">
                 <h4 class="page-header display-4">{{product.name}}
