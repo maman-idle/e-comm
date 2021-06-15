@@ -12,6 +12,7 @@ class MyCreateUserForm(UserCreationForm):
         attrs={'class': 'form-control', 'placeholder': 'Password'}))
     password2 = forms.CharField(label="Password Confirmation", max_length=16, widget=forms.PasswordInput(
         attrs={'class': 'form-control', 'placeholder': 'Password confirmation'}))
+    phone = forms.CharField(label="Phone", max_length=17, widget=forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Phone', '-webkit-appearance':'none'}))
 
     class Meta:
         model = Account
@@ -20,7 +21,6 @@ class MyCreateUserForm(UserCreationForm):
         widgets = {
             'username': forms.fields.TextInput(attrs={'class': 'form-control', 'autofocus': True, 'placeholder': 'Username'}),
             'email': forms.fields.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
-            'phone': forms.fields.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone'}),
             'address': forms.fields.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}),
         }
 
