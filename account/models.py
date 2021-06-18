@@ -94,11 +94,17 @@ class Account(AbstractBaseUser, PermissionsMixin):
     # def has_module_perms(self, app_label):
     #     return True
 
+class Tag(models.Model):
+    name = models.CharField(max_length=25, null=True)
+
+    def __str__(self):
+        return self.name
 
 class Product(models.Model):
     name = models.CharField(max_length=200)
     price = models.BigIntegerField()
     extra = models.CharField(max_length=200)
+    tags = models.ManyToManyField(Tag)
 
     # upload to folder media/products, before do this make sure to install Pillow and set up ur media in settings.py
     picture = models.ImageField(
@@ -128,3 +134,4 @@ class Order(models.Model):
             return '0'+str(self.id)+'_'+self.customer.username
         else:
             return str(self.id)+'_'+self.customer.username
+

@@ -15,6 +15,9 @@ urlpatterns = [
     path('deliver/<order_id>', views.deliver, name='deliver'),
     path('cancel-delivery/<order_id>', views.cancel_delivery, name='cancel'),
     path('add-product/', views.add_product, name='add_product'),
+    path('tags/', views.tags, name='manage_tags'),
+    path('add-tag/', views.add_tag, name='add_tag'),
+    path('delete-tag/<tag_id>', views.delete_tag, name='delete_tag'),
     path('edit-product/<product_id>', views.edit_product, name='edit_product'),
     path('delete-product/<product_id>',
          views.delete_product, name='delete_product')

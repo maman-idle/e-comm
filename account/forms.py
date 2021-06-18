@@ -1,8 +1,9 @@
 from django import forms
 from django.db.models import fields
 from django.forms import ModelForm
-from django.forms.widgets import PasswordInput
-from .models import Account, Product
+from django.forms import widgets
+from django.forms.widgets import CheckboxInput, CheckboxSelectMultiple, PasswordInput, TextInput
+from .models import Account, Product, Tag
 from django.contrib.auth.models import Group
 from django.contrib.auth.forms import UserCreationForm
 
@@ -64,6 +65,21 @@ class MyCreateStaffForm(UserCreationForm):
 
 
 class ProductForm(ModelForm):
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        label='Tags',
+        widget=forms.CheckboxSelectMultiple()
+    )
+    name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    price = forms.CharField(widget=forms.NumberInput(attrs={'class':'form-control'}))
+    extra = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
+    picture = forms.ImageField(widget=forms.FileInput(attrs={'class':'form-control'}))
     class Meta:
         model = Product
-        fields = ['name', 'price', 'extra', 'picture']
+        fields = ['name', 'price', 'extra', 'picture', 'tags']
+
+class TagForm(ModelForm):
+    name = forms.CharField(widget=TextInput(attrs={'class':'form-control'}))
+    class Meta:
+        model = Tag
+        fields = '__all__'

@@ -1,10 +1,10 @@
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import MyCreateUserForm, ProductForm
+from .forms import MyCreateUserForm, ProductForm, TagForm
 from django.contrib.auth import authenticate, login as login_in, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Account, Order, Product
+from .models import Account, Order, Product, Tag
 from django.urls import reverse
 from .decorators import unauthenticated_user, allowed_users
 
@@ -204,6 +204,45 @@ def add_product(request):
 
     return render(request, 'chickstore/addproduct.html', context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['staff'])
+def tags(request):
+    tags = Tag.objects.all()
+    context = {
+        'tags':tags
+    }
+
+    return render(request, 'chickstore/tags.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['staff'])
+def add_tag(request):
+
+    forms = TagForm()
+
+    if request.method == 'POST':
+        form = TagForm(request.POST)
+        if form.is_valid:
+            form.save()
+
+            name = form.cleaned_data.get('name')    
+            messages.success(request, name+' added!')
+            return redirect('add_tag')
+
+    context = {
+        'form' : forms
+    }
+    return render(request, 'chickstore/addtag.html', context)
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['staff'])
+def delete_tag(request, tag_id):
+
+    tag = Tag.objects.get(pk=tag_id)
+    messages.success(request, 'Tag \''+ tag.name +'\' is deleted')
+    Tag.objects.filter(pk=tag_id).delete()
+
+    return redirect(reverse('manage_tags'))
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['staff'])
