@@ -1,0 +1,40 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+
+<h2 class="display-4">Manage Tags</h2>
+
+{% if messages %}
+    {% for message in messages %}
+        <h3 class="my-3">{{message}}</h3>
+    {% endfor %}
+{% endif %}
+
+<a href="{% url 'add_tag' %}" class="btn btn-md btn-success mb-3 mt-2">Add a New Tag</a>
+<div class="table-responsive mt-3">
+    <table class="table table-striped table-bordered table-info">
+        <tr>
+            <th class="fit">
+                No.
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+        {% for tag in tags %}
+        <tr>        
+            <td>{{forloop.counter}}</td>
+            <td>{{tag.name}}</td>
+            <td class="fit text-center">
+                <a href="{%  url 'delete_tag' tag.id %}" class="btn btn-sm btn-danger">Delete</a>                
+            </td>            
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+{% endblock %}
