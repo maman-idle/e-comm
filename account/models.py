@@ -95,7 +95,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     #     return True
 
 class Tag(models.Model):
-    name = models.CharField(max_length=25, null=True)
+    name = models.CharField(max_length=25, null=True, unique=True)
 
     def __str__(self):
         return self.name

@@ -25,6 +25,21 @@
         <input class="form-control" type="extra" name="extra" value="{{preExtra}}" />
     </div>
 
+    <label class=" mt-3" style="display: block;">Tags</label>
+    {% for tag in tags %}
+        {% if tag in preTags %}
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="tags" value={{tag.id}} checked>
+                <label class="form-check-label" for="tags">{{tag.name}}</label>
+            </div>
+        {% else %}
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="tags" value={{tag.id}}>
+                <label class="form-check-label" for="tags">{{tag.name}}</label>
+            </div>
+        {% endif %}
+    {% endfor %}
+
     <div class="get-right">
         <button class="btn btn-md btn-success mt-3" type="submit">Edit</button>
     </div>

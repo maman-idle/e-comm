@@ -249,24 +249,35 @@ def delete_tag(request, tag_id):
 def edit_product(request, product_id):
 
     product = Product.objects.get(pk=product_id)
+    tags = Tag.objects.order_by('id')
     context = {
         'preName': product.name,
         'prePrice': product.price,
-        'preExtra': product.extra
+        'preExtra': product.extra,
+        'preTags' : product.tags.all(),
+        'tags': tags
     }
 
     if request.method == 'POST':
         name = request.POST.get('name')
         price = request.POST.get('price')
         extra = request.POST.get('extra')
+        selected_tags = request.POST.getlist('tags')
 
-        Product.objects.filter(pk=product_id).update(
-            name=name, price=price, extra=extra)
+        if selected_tags: 
+            product.tags.clear() #REMOVE ALL TAG RELATIONS 
+            for tag in selected_tags:
+                product.tags.add(Tag.objects.get(id=tag))
 
-        messages.success(request, 'Product has been successfully edited!')
-
-        return redirect(reverse('edit_product', kwargs={'product_id': product_id}))
-
+            Product.objects.filter(pk=product_id).update(
+                name=name, price=price, extra=extra)
+            messages.success(request, 'Product has been successfully edited!')
+            return redirect(reverse('edit_product', kwargs={'product_id': product_id}))
+        else:        
+            Product.objects.filter(pk=product_id).update(
+                name=name, price=price, extra=extra)
+            messages.success(request, 'Product has been successfully edited!')
+            return redirect(reverse('edit_product', kwargs={'product_id': product_id})) 
     else:
         return render(request, 'chickstore/editproduct.html', context)
 
