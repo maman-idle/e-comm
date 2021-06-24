@@ -3,8 +3,14 @@
 {% load humanize %}
 {% load static %}
 
+{% if messages %}
+    {% for message in messages %}
+        <h3>{{message}}</h3>
+    {% endfor %}
+{% endif %}
+
 <div class="row justify-content-center mt-4">
-    <div class="col col-md-5 text-center mb-3">
+    <div class="col col-xl-5 text-center mb-3">
         {% if product.id == 1 %}
         <img class="product-image" src="{% static 'products/egg.jpg' %}" width="450rem" , height="425rem">
         {% elif product.id == 2 %}
@@ -19,19 +25,31 @@
         <img class="product-image" src="{{product.picture.url}}" width="450rem" , height="425rem">
         {% endif %}
 
-        <h3 class="display-5">{{product.name}}</h3>
-        <strong>
-            <p>Price : {{product.price|intcomma}}</p>
-        </strong>
-        <button class="btn btn-sm btn-success" onclick="buy()">Buy</button>
+        <h3 class="display-5">
+            {{product.name}}<small class="text-muted">{{product.extra}}</small>
+        </h3>
+
+        <div class="text-left">
+            <strong>
+                <p class="bg-info" style="margin-bottom: 0;">Price: Rp{{product.price|intcomma}}</p>
+                <p class="bg-warning" style="display: block;">Stock: {{product.quantity}}</p>
+            </strong>
+        </div>
+
+        {% if product.quantity %}
+            <button class="btn btn-md btn-success" onclick="buy()">Buy</button>
+        {% else %}
+            <button class="btn btn-sm btn-danger disabled">Sold Out</button>
+        {% endif %}
     </div>
-    <div class="col col-md-3 mb-3">
+
+    <div class="col col-xl-3 mb-3">
         <form method="POST" class="buy_opt hide">
             {% csrf_token %}
             <div>
                 <label><small><strong>Quantity</strong></small></label>
                 <input required class="form-control mb-2" type="number" min="1" name="amount">
-                <input class="btn btn-sm btn-info" type="submit" value="Ok">
+                <input onclick="return confirm('Buy {{product.name}} ?')" class="btn btn-sm btn-info" type="submit" value="Ok">
             </div>
         </form>
     </div>

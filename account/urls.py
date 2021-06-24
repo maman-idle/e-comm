@@ -7,6 +7,7 @@ urlpatterns = [
     path('logout/', views.logoutView, name='logout'),
     path('main/', views.main, name='mainpage'),
     path('orders/<customer>', views.orders, name='orders'),
+    path('cancel-order/<order_id>', views.cancel_order, name='cancel_order'),
     path('delete-order/<order_id>', views.delete_order, name='delete_order'),
     path('edit-profile/<customer_id>', views.edit_profile, name='edit_profile'),
     path('product/<product_id>', views.productpage, name='productpage'),

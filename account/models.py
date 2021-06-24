@@ -105,6 +105,7 @@ class Product(models.Model):
     price = models.BigIntegerField()
     extra = models.CharField(max_length=200)
     tags = models.ManyToManyField(Tag)
+    quantity = models.IntegerField(null=True)
 
     # upload to folder media/products, before do this make sure to install Pillow and set up ur media in settings.py
     picture = models.ImageField(

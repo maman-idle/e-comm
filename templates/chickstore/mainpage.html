@@ -24,13 +24,25 @@
                     <small class="text-muted">{{display1.extra}}</small>
                 </h4>
                 <p class="price"><strong>Rp {{display1.price|intcomma}}</strong></p>
-                <a class="btn btn-success" href="{% url 'productpage' display1.id %}" type="button"
-                    style="text-decoration: none;">Buy</a>
+                {% if display1.quantity %}
+                    <a class="btn btn-success" href="{% url 'productpage' display1.id %}" type="button"
+                        style="text-decoration: none;">Buy</a>
+                {% else %}
+                    <button class="btn btn-danger disabled">Sold Out</button>
+                {% endif %}
             </div>
-            <div class="mb-2">
-                {% for tag in display1.tags.all %}            
-                    <span class="product-tag">{{tag}}</span>
-                {% endfor %}
+            <div class="row mb-2">
+                <div class="col-md-auto">
+                    {% for tag in display1.tags.all %}            
+                        <span class="product-tag">{{tag}}</span>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    <!-- filler -->
+                </div>
+                <div class="col-md-auto">
+                    <strong>Stock: {{display1.quantity}}</strong>
+                </div>
             </div>
         </div>
         <div class="col-9 col-md-4 card ms-3 mb-3 ">
@@ -42,13 +54,25 @@
                     <small class="text-muted">{{display2.extra}}</small>
                 </h4>
                 <p class="price"><strong>Rp {{display2.price|intcomma}}</strong></p>
-                <a class="btn btn-success" href="{% url 'productpage' display2.id %}" type="button"
-                    style="text-decoration: none;">Buy</a>
+                {% if display2.quantity %}
+                    <a class="btn btn-success" href="{% url 'productpage' display2.id %}" type="button"
+                        style="text-decoration: none;">Buy</a>
+                {% else %}
+                    <button class="btn btn-danger disabled">Sold Out</button>
+                {% endif %}
             </div>
-            <div class="mb-2">
-                {% for tag in display2.tags.all %}            
-                    <span class="product-tag">{{tag}}</span>
-                {% endfor %}
+            <div class="row mb-2">
+                <div class="col col-md-auto">
+                    {% for tag in display2.tags.all %}            
+                        <span class="product-tag">{{tag}}</span>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    <!-- filler -->
+                </div>
+                <div class="col-md-auto">
+                    <strong>Stock: {{display2.quantity}}</strong>
+                </div>
             </div>
         </div>
         <div class="col-9 col-md-4 card ms-3 mb-3">
@@ -60,13 +84,25 @@
                     <small class="text-muted">{{display3.extra}}</small>
                 </h4>
                 <p class="price"><strong>Rp {{display3.price|intcomma}}</strong></p>
-                <a class="btn btn-success" href="{% url 'productpage' display3.id %}" type="button"
-                    style="text-decoration: none;">Buy</a>
+                {% if display3.quantity %}
+                    <a class="btn btn-success" href="{% url 'productpage' display3.id %}" type="button"
+                        style="text-decoration: none;">Buy</a>
+                {% else %}
+                    <button class="btn btn-danger disabled">Sold Out</button>
+                {% endif %}
             </div>
-            <div class="mb-2">
-                {% for tag in display3.tags.all %}            
-                    <span class="product-tag">{{tag}}</span>
-                {% endfor %}
+            <div class="row mb-2">
+                <div class="col col-md-auto">
+                    {% for tag in display3.tags.all %}            
+                        <span class="product-tag">{{tag}}</span>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    <!-- filler -->
+                </div>
+                <div class="col-md-auto">
+                    <strong>Stock: {{display3.quantity}}</strong>
+                </div>
             </div>
         </div>
         <div class="col-9 col-md-4 card ms-3 mb-3">
@@ -78,13 +114,25 @@
                     <small class="text-muted">{{display4.extra}}</small>
                 </h4>
                 <p class="price"><strong>Rp {{display4.price|intcomma}}</strong></p>
-                <a class="btn btn-success" href="{% url 'productpage' display4.id %}" type="button"
-                    style="text-decoration: none;">Buy</a>
+                {% if display4.quantity %}
+                    <a class="btn btn-success" href="{% url 'productpage' display4.id %}" type="button"
+                        style="text-decoration: none;">Buy</a>
+                {% else %}
+                    <button class="btn btn-danger disabled">Sold Out</button>
+                {% endif %}
             </div>
-            <div class="mb-2">
-                {% for tag in display4.tags.all %}            
-                    <span class="product-tag">{{tag}}</span>
-                {% endfor %}
+            <div class="row mb-2">
+                <div class="col col-md-auto">
+                    {% for tag in display4.tags.all %}            
+                        <span class="product-tag">{{tag}}</span>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    <!-- filler -->
+                </div>
+                <div class="col-md-auto">
+                    <strong>Stock: {{display4.quantity}}</strong>
+                </div>
             </div>
         </div>
         <div class="col-9 col-md-4 card ms-3 mb-3">
@@ -96,13 +144,25 @@
                     <small class="text-muted">{{display5.extra}}</small>
                 </h4>
                 <p class="price"><strong>Rp {{display5.price|intcomma}}</strong></p>
-                <a class="btn btn-success" href="{% url 'productpage' display5.id %}" type="button"
-                    style="text-decoration: none;">Buy</a>
+                {% if display5.quantity %}
+                    <a class="btn btn-success" href="{% url 'productpage' display5.id %}" type="button"
+                        style="text-decoration: none;">Buy</a>
+                {% else %}
+                    <button class="btn btn-danger disabled">Sold Out</button>
+                {% endif %}
             </div>
-            <div class="mb-2">
-                {% for tag in display5.tags.all %}            
-                    <span class="product-tag">{{tag}}</span>
-                {% endfor %}
+            <div class="row mb-2">
+                <div class="col col-md-auto">
+                    {% for tag in display5.tags.all %}            
+                        <span class="product-tag">{{tag}}</span>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    <!-- filler -->
+                </div>
+                <div class="col-md-auto">
+                    <strong>Stock: {{display5.quantity}}</strong>
+                </div>
             </div>
         </div>
 
@@ -115,13 +175,25 @@
                     <small class="text-muted">{{product.extra}}</small>
                 </h4>
                 <p class="price"><strong>Rp {{product.price|intcomma}}</strong></p>
-                <a class="btn btn-success" href="{% url 'productpage' product.id %}" type="button"
-                    style="text-decoration: none;">Buy</a>
+                {% if product.quantity %}
+                    <a class="btn btn-success" href="{% url 'productpage' product.id %}" type="button"
+                        style="text-decoration: none;">Buy</a>
+                {% else %}
+                    <button class="btn btn-danger disabled">Sold Out</button>
+                {% endif %}
             </div>
-            <div class="mb-2">
-                {% for tag in product.tags.all %}            
-                    <span class="product-tag">{{tag}}</span>
-                {% endfor %}
+            <div class="row mb-2">
+                <div class="col col-md-auto">
+                    {% for tag in product.tags.all %}            
+                        <span class="product-tag">{{tag}}</span>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    <!-- filler -->
+                </div>
+                <div class="col-md-auto">
+                    <strong>Stock: {{product.quantity}}</strong>
+                </div>
             </div>
         </div>
         {%endfor%}

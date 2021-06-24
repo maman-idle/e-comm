@@ -74,9 +74,10 @@ class ProductForm(ModelForm):
     price = forms.CharField(widget=forms.NumberInput(attrs={'class':'form-control'}))
     extra = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     picture = forms.ImageField(widget=forms.FileInput(attrs={'class':'form-control'}))
+    quantity = forms.IntegerField(label='Stock', widget=forms.NumberInput(attrs={'class':'form-control'}))
     class Meta:
         model = Product
-        fields = ['name', 'price', 'extra', 'picture', 'tags']
+        fields = ['name', 'price', 'quantity', 'extra', 'picture', 'tags']
 
 class TagForm(ModelForm):
     name = forms.CharField(widget=TextInput(attrs={'class':'form-control'}))

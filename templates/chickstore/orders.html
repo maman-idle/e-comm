@@ -50,11 +50,11 @@
                 </td>
                 {% if order.status == 'Pending' %}
                     <td>
-                        <a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Cancel order</a>   
+                        <a class="btn btn-sm btn-danger" href="{% url 'cancel_order' order.id %}">Cancel order</a>   
                     </td>            
                 {% elif order.status == 'In Delivery' %}
                     <td>
-                        <a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Delete order</a>   
+                        <a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Delete order history</a>   
                     </td>            
                 {% endif %}
             </tr>

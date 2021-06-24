@@ -111,6 +111,20 @@ def orders(request, customer):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
+def cancel_order(request, order_id):
+    order = Order.objects.get(pk=order_id)
+    product = Product.objects.get(pk=order.product.id)
+
+    stock = order.quantity + product.quantity
+    Product.objects.filter(pk=order.product.id).update(quantity=stock)
+
+    current_user = request.user
+    Order.objects.get(pk=order_id).delete()
+
+    return redirect(reverse('orders', kwargs={'customer': int(current_user.id)}))
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['customer'])
 def delete_order(request, order_id):
 
     current_user = request.user
@@ -131,13 +145,19 @@ def productpage(request, product_id):
 
     if request.method == "POST":
         amount = request.POST.get("amount")
-        total_price = product.price * int(amount)
 
-        order = Order(customer=current_user,
-                      product=product, quantity=amount, price_sum=total_price, status="Pending")
-        order.save()
+        if int(product.quantity) < int(amount):
+            messages.info(request, 'Not enough stock.')
+            return redirect(reverse('productpage', kwargs={'product_id':int(product_id)}))
 
-        return redirect(reverse('orders', kwargs={'customer': int(current_user.id)}))
+        else:
+            total_price = product.price * int(amount)
+            order = Order(customer=current_user,
+                        product=product, quantity=amount, price_sum=total_price, status="Pending")
+            order.save()
+            stock = int(product.quantity) - int(amount)
+            Product.objects.filter(pk=product.id).update(quantity=stock)
+            return redirect(reverse('orders', kwargs={'customer': int(current_user.id)}))
 
     return render(request, 'chickstore/productpage.html', context)
 
@@ -151,11 +171,11 @@ def about(request):
 @allowed_users(allowed_roles=['staff'])
 def staff_page(request):
 
-    pending_orders = Order.objects.filter(status='Pending')
-    delivered_orders = Order.objects.filter(status='In Delivery')
+    pending_orders = Order.objects.filter(status='Pending').order_by('-order_date')
+    delivered_orders = Order.objects.filter(status='In Delivery').order_by('-order_date')
 
-    products = Product.objects.all()
-    customers = Account.objects.filter(group=1)
+    products = Product.objects.all().order_by('id')
+    customers = Account.objects.filter(group=1).order_by('id')
 
     context = {
         'pending': pending_orders,
@@ -253,6 +273,7 @@ def edit_product(request, product_id):
     context = {
         'preName': product.name,
         'prePrice': product.price,
+        'preStock' : product.quantity,
         'preExtra': product.extra,
         'preTags' : product.tags.all(),
         'tags': tags
@@ -262,20 +283,22 @@ def edit_product(request, product_id):
         name = request.POST.get('name')
         price = request.POST.get('price')
         extra = request.POST.get('extra')
+        quantity = request.POST.get('stock')
         selected_tags = request.POST.getlist('tags')
 
+        #Insert selected id tag from template into product tag
         if selected_tags: 
             product.tags.clear() #REMOVE ALL TAG RELATIONS 
             for tag in selected_tags:
                 product.tags.add(Tag.objects.get(id=tag))
 
             Product.objects.filter(pk=product_id).update(
-                name=name, price=price, extra=extra)
+                name=name, price=price, extra=extra, quantity=quantity)
             messages.success(request, 'Product has been successfully edited!')
             return redirect(reverse('edit_product', kwargs={'product_id': product_id}))
         else:        
             Product.objects.filter(pk=product_id).update(
-                name=name, price=price, extra=extra)
+                name=name, price=price, extra=extra, quantity=quantity)
             messages.success(request, 'Product has been successfully edited!')
             return redirect(reverse('edit_product', kwargs={'product_id': product_id})) 
     else:

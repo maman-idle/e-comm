@@ -23,7 +23,7 @@ class AccountAdmin(admin.ModelAdmin):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'extra', 'date_added')
+    list_display = ('name', 'price', 'quantity', 'extra', 'date_added')
     search_fields = ('name', 'extra')
     filter_horizontal = ('tags',)
 
